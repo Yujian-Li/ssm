@@ -1,4 +1,4 @@
-# ssm -- Final Year Project 2019
+# Recruitment System for Sports Industry -- Final Year Project 2019
 
 **Frontend:** Java Server Page
 
