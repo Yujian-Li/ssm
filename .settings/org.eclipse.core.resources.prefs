@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//WebContent/view/adminaccount.jsp=UTF-8
+encoding//WebContent/view/adminlogin.jsp=UTF-8
+encoding//WebContent/view/enterpriselogin.jsp=UTF-8
+encoding//WebContent/view/jobs.jsp=UTF-8
+encoding//src/com/sportsjobs/controller/JobController.java=UTF-8
+encoding//src/com/sportsjobs/utils/NavigationTag.java=UTF-8
+encoding//src/mybatis/mappers/JobMapper.xml=UTF-8

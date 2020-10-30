@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sportsjobs.mapper.ApplicantinfoMapper">
+
+	<resultMap type="com.sportsjobs.pojo.Applicantinfo" id="queryApplicant">
+		<id column="applicantId" property="applicantId"/>
+		<result column="applicantName" property="applicantName"/>
+		<result column="applicantGender" property="applicantGender"/>
+		<result column="applicantAccount" property="applicantAccount"/>
+		<result column="applicantPwd" property="applicantPwd"/>
+	</resultMap>
+
+	<resultMap autoMapping="true" id="applicantRM" type="com.sportsjobs.pojo.Applicantinfo">
+		<id property="applicantId" column="applicantId"/>
+	</resultMap>	
+	<select id="getApplicantByNameAndPwd" resultMap="queryApplicant" resultType = "com.sportsjobs.pojo.Applicantinfo" parameterType = "string">
+	select * from applicantinfo where applicantAccount = #{applicantAccount}
+	</select>
+	
+	<select id="getApplicants" resultMap="queryApplicant" resultType="com.sportsjobs.pojo.Applicantinfo">
+		SELECT a.* FROM applicantinfo a
+		<where>
+			<if test="applicantId != null">
+				a.applicantId=#{applicantId}
+			</if>
+		</where>
+		<if test="startIndex != null and pageShow != null">
+			LIMIT #{startIndex}, #{pageShow}
+		</if>
+	</select>
+	
+	<select id="getApplicantTotal" resultType="int">
+		SELECT COUNT(applicantId) FROM applicantinfo
+	</select>
+	
+	<select id="getApplicantById" parameterType="int" resultMap="queryApplicant" resultType="com.sportsjobs.pojo.Applicantinfo">
+		SELECT a.* FROM applicantinfo a
+		WHERE a.applicantId=#{applicantId}
+	</select>
+	
+	<update id="isUpdateApplicant" parameterType="com.sportsjobs.pojo.Applicantinfo">
+		UPDATE applicantinfo SET
+		applicantName=#{applicantName},applicantGender=#{applicantGender}, applicantAccount=#{applicantAccount}, applicantPwd=#{applicantPwd}
+		WHERE applicantId=#{applicantId}
+	</update>
+	
+	<insert id="isAddApplicant" parameterType="com.sportsjobs.pojo.Applicantinfo">
+		INSERT INTO applicantinfo VALUES(NULL, #{applicantName},#{applicantGender}, #{applicantAccount}, #{applicantPwd})
+	</insert>
+	
+	<delete id="isDelApplicant" parameterType="int">
+		DELETE FROM applicantinfo WHERE applicantId=#{applicantId}
+	</delete>						
+</mapper>

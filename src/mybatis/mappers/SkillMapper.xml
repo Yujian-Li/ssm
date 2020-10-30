@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sportsjobs.mapper.SkillMapper">
+
+<select id="getSkillsByApplicantId" parameterType="Integer" resultType="com.sportsjobs.pojo.Skill">
+	SELECT * FROM applicantskills a, skills s WHERE a.skillId=s.skillId AND a.applicantId = #{applicantId}
+</select>
+
+<select id="getSkillsByAppId" parameterType="Integer" resultType="String">
+	SELECT skillSpec FROM applicantskills a, skills s WHERE a.skillId=s.skillId AND a.applicantId=#{applicantId}
+</select>
+
+<select id="getAllSkills" resultType="com.sportsjobs.pojo.Skill">
+	SELECT * FROM skills
+</select>
+
+<select id="getAllSkillsId" resultType="String">
+	SELECT skillId FROM skills
+</select>
+
+<delete id="deleteByApplicantId" parameterType="Integer">
+	DELETE FROM applicantskills WHERE applicantId=#{applicantId}
+</delete>
+
+<insert id="insertApplicantSkill">
+	INSERT INTO applicantskills VALUES(#{param1}, #{param2})
+</insert>
+
+</mapper>

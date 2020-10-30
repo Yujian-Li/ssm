@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sportsjobs.mapper.EnterpriseMapper">
+
+	<resultMap type="com.sportsjobs.pojo.Enterprise" id="queryEnterprise">
+		<id column="enterpriseId" property="enterpriseId"/>
+		<result column="enterpriseName" property="enterpriseName"/>
+		<result column="enterpriseGender" property="enterpriseGender"/>
+		<result column="enterpriseAccount" property="enterpriseAccount"/>
+		<result column="enterprisePwd" property="enterprisePwd"/>
+	</resultMap>
+	
+	<select id="getEnterpriseByName" parameterType="string" resultMap="queryEnterprise" resultType="com.sportsjobs.pojo.Enterprise" >
+		SELECT * FROM enterpriseinfo WHERE enterpriseAccount=#{enterpriseAccount}
+	</select>
+	
+	<select id="getEnterprises" parameterType="int" resultType="com.sportsjobs.pojo.Enterprise">
+		SELECT e.* FROM enterpriseinfo e
+		<where>
+			<if test="enterpriseId != null">
+				e.enterpriseId=#{enterpriseId}
+			</if>
+		</where>
+		<if test="startIndex != null and pageShow != null">
+			LIMIT #{startIndex}, #{pageShow}
+		</if>
+	</select>
+	
+	<select id="getEnterpriseTotal" resultType="int">
+		SELECT COUNT(enterpriseId) FROM enterpriseinfo
+	</select>
+	
+	
+	<select id="getEnterpriseById" parameterType="int" resultType="com.sportsjobs.pojo.Enterprise">
+		SELECT * FROM enterpriseinfo WHERE enterpriseId=#{enterpriseId}
+	</select>
+	
+	<update id="isUpdateEnterprise" parameterType="com.sportsjobs.pojo.Enterprise">
+		UPDATE enterpriseinfo SET
+		enterpriseName=#{enterpriseName}, enterpriseSpec=#{enterpriseSpec}, enterpriseAccount=#{enterpriseAccount}, enterprisePwd=#{enterprisePwd}
+		WHERE enterpriseId=#{enterpriseId}
+	</update>
+		
+	<insert id="isAddEnterprise" parameterType="com.sportsjobs.pojo.Enterprise">
+		INSERT INTO enterpriseinfo VALUES(NULL, #{enterpriseName},#{enterpriseSpec}, #{enterpriseAccount}, #{enterprisePwd})
+	</insert>
+	
+	<delete id="isDelEnterprise" parameterType="int">
+		DELETE FROM enterpriseinfo WHERE enterpriseId=#{enterpriseId}
+	</delete>	
+</mapper>

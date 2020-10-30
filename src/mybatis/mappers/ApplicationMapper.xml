@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sportsjobs.mapper.ApplicationMapper">
+
+	<insert id="isAddApplication" parameterType="com.sportsjobs.pojo.Application">
+		INSERT INTO applications VALUES(#{applicantId},#{jobId})
+	</insert>
+	
+	<select id="getAppsByEnterpriseId" parameterType="Integer" resultType="com.sportsjobs.pojo.Application">
+		SELECT a.applicantId applicantId,
+       a.applicantName applicantName,
+       a.applicantAccount applicantAccount,
+       a.applicantGender applicantGender,
+       j.jobSpec jobSpec, j.jobId jobId
+		FROM applicantinfo a, jobs j, applications app
+		WHERE a.applicantId=app.applicantId AND j.jobId=app.jobId AND j.enterpriseId = #{enterpriseId}
+	</select>
+	
+	<select id="getAppsByApplicantId" parameterType="Integer" resultType="com.sportsjobs.pojo.Job">
+		SELECT jobs.jobId jobId, jobSpec
+		FROM applications, jobs
+		WHERE applications.jobId=jobs.jobId AND applications.applicantId=#{applicantId}
+	</select>
+</mapper>	
