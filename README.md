@@ -1,6 +1,4 @@
-# ssm
-
-Final Year Project 2019
+# ssm -- Final Year Project 2019
 
 Frontend: Java Server Page
 
